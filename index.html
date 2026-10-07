@@ -3524,7 +3524,7 @@
             </span>
             <span class="sticky-label">GitHub</span>
           </a>
-          <a href="mailto:yugandharreddybana@outlook.com" class="sticky-note pink">
+          <a href="mailto:yugandharreddybana@outlook.com" id="contact-email" class="sticky-note pink">
             <span class="sticky-icon">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -3534,7 +3534,7 @@
             <span class="sticky-label">Email</span>
             <span class="sticky-reveal-text">yugandharreddybana<br>@outlook.com</span>
           </a>
-          <a href="tel:+353 894851413" class="sticky-note cyan sticky-note-phone" style="transform: rotate(-1deg)">
+          <a href="tel:+353894851413" id="contact-phone" class="sticky-note cyan sticky-note-phone" style="transform: rotate(-1deg)">
             <span class="sticky-icon">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3746,6 +3746,26 @@
         showComicWord(e.clientX, e.clientY);
       }
     });
+
+    // ---- REGION-BASED CONTACT DETAILS (?region=india) ----
+    (function applyRegionContact() {
+      var region = new URLSearchParams(location.search).get('region');
+      if (region !== 'india') return; // default stays Ireland/Dublin
+      var phone = document.getElementById('contact-phone');
+      var email = document.getElementById('contact-email');
+      if (phone) {
+        phone.href = 'tel:+919030774761';
+        var phoneText = phone.querySelector('.sticky-reveal-text');
+        if (phoneText) phoneText.textContent = '+91 90307 74761';
+      }
+      if (email) {
+        email.href = 'mailto:banayugandhar89@outlook.com';
+        var emailText = email.querySelector('.sticky-reveal-text');
+        if (emailText) emailText.innerHTML = 'banayugandhar89<br>@outlook.com';
+      }
+      // ponytail: drop the param from the visible URL once applied, keep any hash
+      history.replaceState(null, '', location.pathname + location.hash);
+    })();
 
     // ---- JOURNEY LEAFLET MAP ----
     (function initJourneyMap() {
